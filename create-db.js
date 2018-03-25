@@ -4,7 +4,7 @@ const pg = require('pg');
 const fs = require('fs');
 // const plantsData = require('./plants.json');
 
-const client = new pg.Client('postgres://postgres:grrrrr@LOCALHOST:5432/plants');
+const client = new pg.Client(DATABASE_URL);
 client.connect();
 client.on('error', err => {
     console.error(err);
