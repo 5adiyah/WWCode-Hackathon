@@ -50,14 +50,17 @@ app.put('/plants/:name', (request, response) => {
 });
 
 app.get('/choice', (request, response) => {
+    console.log('in get choice');
     client.query(`
         SELECT light FROM choice
         WHERE id=1;
     `)
     .then(function(result) {
+        console.log('in get result');
         response.send(result.rows);
     })
     .catch(function(err) {
+        console.log('in get error');
         console.error(err);
     });
 });

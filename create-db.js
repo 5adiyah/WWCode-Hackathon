@@ -64,20 +64,6 @@ client.query(`
         err => console.error(err)
     );
 
-client.query(`
-            INSERT INTO choice (
-                plant_id,
-                light)
-                VALUES ($1, $2);
-            `,
-        [
-            "ORI", "semi-shade"
-        ])
-    .then (
-        () => console.log('default choice seeded'),
-        err => console.error(err)
-    );
-
 //Figure out how to end this client
 
 module.exports = client;
