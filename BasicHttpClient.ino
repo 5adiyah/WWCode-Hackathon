@@ -17,6 +17,13 @@
 
 #define USE_SERIAL Serial
 
+// DHT is the name for temp and humidity sensor
+#include "DHT.h"
+#define DHTPIN 0     // what digital pin we're connected to
+#define DHTTYPE DHT22   // DHT 22  (AM2302), AM2321
+#define UPLOADSPEED 115200
+DHT dht(DHTPIN, DHTTYPE);
+
 ESP8266WiFiMulti WiFiMulti;
 
 const char* ssid = "Puppet Guest";
@@ -33,6 +40,11 @@ int photocellReading = 0;     // the analog reading from the analog resistor div
 
 void setup() {
 
+    // temp and humidity sensor
+    Serial.begin(UPLOADSPEED);
+    Serial.println("DHTxx test!");
+    dht.begin();
+    
      USE_SERIAL.begin(115200);
    // USE_SERIAL.setDebugOutput(true);
 
@@ -75,6 +87,46 @@ void setup() {
 }
 
 void loop() {
+  
+  // ---------------------------------
+  // beginning of temp and humidity sensor code
+  // ---------------------------------
+  // Reading temperature or humidity takes about 250 milliseconds!
+  // Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)
+  float h = dht.readHumidity();
+  // Read temperature as Celsius (the default)
+  float t = dht.readTemperature();
+  // Read temperature as Fahrenheit (isFahrenheit = true)
+  float f = dht.readTemperature(true);
+
+  // Check if any reads failed and exit early (to try again).
+  if (isnan(h) || isnan(t) || isnan(f)) {
+    Serial.println("Failed to read from DHT sensor!");
+    return;
+  }
+
+  // Compute heat index in Fahrenheit (the default)
+  float hif = dht.computeHeatIndex(f, h);
+  // Compute heat index in Celsius (isFahreheit = false)
+  float hic = dht.computeHeatIndex(t, h, false);
+
+  Serial.print("Humidity: ");
+  Serial.print(h);
+  Serial.print(" %\t");
+  Serial.print("Temperature: ");
+  Serial.print(t);
+  Serial.print(" *C ");
+  Serial.print(f);
+  Serial.print(" *F\t");
+  Serial.print("Heat index: ");
+  Serial.print(hic);
+  Serial.print(" *C ");
+  Serial.print(hif);
+  Serial.println(" *F");
+  // ---------------------------------
+  // end of temp and humidity sensor code
+  // ---------------------------------
+    
   while (passtime != sunlighttime)
   {
     photocellReading = analogRead(photocellPin);
@@ -89,21 +141,24 @@ void loop() {
     }
     
     if (photocellReading < 10) {
+      Serial.println("dark");
       passtime -= 3;
     }
     
     else if (photocellReading < 200) {
+      Serial.println("dim");
       passtime -= 2;
     }
     
     else if (photocellReading < 500) {
+      Serial.println("light");
       passtime -= 1;
     }
-    
+    Serial.println(passtime);
     if (passtime <= 0) {
       passtime = 1;
     }
-
+    Serial.println(passtime);
     if (passtime == sunlighttime) {
       mirrorRotationTwo();
     }
