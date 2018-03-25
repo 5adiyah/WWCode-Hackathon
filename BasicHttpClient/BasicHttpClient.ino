@@ -15,6 +15,10 @@
 #include <ArduinoJson.h>
 #include <Servo.h>
 
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include "Adafruit_LEDBackpack.h"
+
 #define USE_SERIAL Serial
 
 // DHT is the name for temp and humidity sensor
@@ -37,9 +41,13 @@ int passtime = 0;
 int photocellPin = 17;     // the cell and 10K pulldown are connected to a0
 int photocellReading = 0;     // the analog reading from the analog resistor divider
 
+Adafruit_8x16minimatrix matrix = Adafruit_8x16minimatrix();
 
 void setup() {
+    //happy and frowny face matrix
+    matrix.begin(0x70);  // pass in the address
 
+    
     // temp and humidity sensor
     Serial.begin(UPLOADSPEED);
     Serial.println("DHTxx test!");
@@ -85,8 +93,16 @@ void setup() {
   }
     
 }
+//happy frowny face static image
+   static const uint8_t PROGMEM
+  animation[1][8] =
+  {
+      {60,66,165,129,165,153,66,60}
+  };
 
 void loop() {
+
+  
   
   // ---------------------------------
   // beginning of temp and humidity sensor code
@@ -126,7 +142,24 @@ void loop() {
   // ---------------------------------
   // end of temp and humidity sensor code
   // ---------------------------------
+
+  // smile or frown for humidity
+  if (h < 40){//frowny face-test tomorrow  
+    matrix.clear();
+    matrix.drawBitmap(0, 0, animation[0], 8, 8, LED_ON);
+    matrix.writeDisplay();
+    delay(400);
     
+    
+  }
+  else if (h >= 40) {//happy face-test tomorrow
+    matrix.clear();
+    matrix.drawBitmap(0, 0, animation[1], 8, 8, LED_ON);
+    matrix.writeDisplay();
+    delay(400);
+    
+     
+  }
   while (passtime != sunlighttime)
   {
     photocellReading = analogRead(photocellPin);
