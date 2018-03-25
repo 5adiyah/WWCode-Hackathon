@@ -56,7 +56,7 @@ app.get('/choice', (request, response) => {
         WHERE id=1;
     `)
     .then(function(result) {
-        console.log('in get result');
+        console.log(result);
         response.send(result.rows);
     })
     .catch(function(err) {
