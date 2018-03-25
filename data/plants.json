@@ -1,22 +1,25 @@
-[{  
-    "name_generic" : "Zucchini",
-    "light" : "semi-shade"
-},{
+[{
+    "id" : "BAS",
     "name_generic" : "Basil",
     "light" : "full sun"
 },{
+    "id" : "CAR",
     "name_generic" : "Carrot",
     "light" : "full sun"
 },{
+    "id" : "TOM",
     "name_generic": "Tomato",
     "light": "full sun"
 },{
+    "id" : "SPN",
     "name_generic": "Spinach",
     "light": "full sun"
 },{
+    "id" : "KAL",
     "name_generic": "Kale",
     "light": "semi-shade"
 },{
-    "name_generic": "Air plant",
+    "id" : "ORI",
+    "name_generic": "Tree",
     "light": "semi-shade"
 }]

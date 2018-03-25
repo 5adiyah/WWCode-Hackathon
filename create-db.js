@@ -18,12 +18,9 @@ const readJson = (path, cb) => {
 
 client.query(`
     CREATE TABLE IF NOT EXISTS plants (
-        id SERIAL PRIMARY KEY,
+        id VARCHAR(3) PRIMARY KEY,
         name_generic VARCHAR(30) NOT NULL,
-        name_scientific VARCHAR(30) NOT NULL,
-        category VARCHAR(15),
-        light VARCHAR(15) NOT NULL,
-        soil VARCHAR(15)
+        light VARCHAR(15) NOT NULL
     );
 `)
     .then(
@@ -31,19 +28,17 @@ client.query(`
         err => console.error(err)
     );
 
-readJson('./plants.json', (err, plantsData) => {
+readJson('./data/plants.json', (err, plantsData) => {
     plantsData.map(plant => {
         client.query(`
             INSERT INTO plants (
+                id,
                 name_generic, 
-                name_scientific,
-                category,
-                light,
-                soil)
-                VALUES ($1, $2, $3, $4, $5);
+                light)
+                VALUES ($1, $2, $3);
             `,
         [
-            plant.name_generic, plant.name_scientific, plant.category, plant.light, plant.soil
+            plant.id, plant.name_generic, plant.light
         ])
     .then (
         () => console.log('plant table seeded'),
@@ -51,5 +46,31 @@ readJson('./plants.json', (err, plantsData) => {
         )
     })
 });
+
+client.query(`
+    CREATE TABLE IF NOT EXISTS choice (
+        id SERIAL,
+        plant_id VARCHAR(3) REFERENCES plants(id),
+        light VARCHAR(15) NOT NULL
+    );
+`)
+    .then(
+        () => console.log('choice table created'),
+        err => console.error(err)
+    );
+
+client.query(`
+            INSERT INTO choice (
+                plant_id,
+                light)
+                VALUES ($1, $2);
+            `,
+        [
+            "ORI", "semi-shade"
+        ])
+    .then (
+        () => console.log('default choice seeded'),
+        err => console.error(err)
+    );
 
 //Figure out how to end this client

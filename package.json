@@ -1,32 +1,30 @@
 {
-  "name": "wifigotchi",
-  "version": "0.0.0",
-  "private": true,
-  "main": "main.js",
+  "name": "wwcode-hackathon",
+  "version": "1.0.0",
+  "description": "",
+  "main": "api.js",
   "scripts": {
-    "dev": "node ./scripts/upload development && npm run repl",
-    "deploy": "node ./scripts/upload production",
-    "repl": "node ./scripts/repl"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
-  "devDependencies": {
-    "thingssdk-deployer": "1.0.0",
-    "thingssdk-espruino-strategy": "1.0.0"
-  },
-  "engines": {
-    "espruino": "1.88"
-  },
-  "dependencies": {
-    "thingssdk-adafruit-matrix": "github:thingssdk/thingssdk-adafruit-matrix"
-  },
-  "description": "This is an example of the [Wifigotchi](http://wifigotchi.com) running on the JavaScript runtime [Espruino](http://espruino.com) on an ESP8266 based board, the [Adafruit Feather HUZZAH](https://www.adafruit.com/products/2821).",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jklipton/wifigotchi-example.git"
+    "url": "git+https://github.com/5adiyah/WWCode-Hackathon.git"
   },
   "author": "Jen Lipton",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jklipton/wifigotchi-example/issues"
+    "url": "https://github.com/5adiyah/WWCode-Hackathon/issues"
   },
-  "homepage": "https://github.com/jklipton/wifigotchi-example#readme"
+  "homepage": "https://github.com/5adiyah/WWCode-Hackathon#readme",
+  "dependencies": {
+    "dotenv": "^5.0.1",
+    "express": "^4.16.3",
+    "fs": "0.0.1-security",
+    "pg": "^7.4.1"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "nodemon": "^1.17.2"
+  }
 }
