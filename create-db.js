@@ -6,6 +6,10 @@ const fs = require('fs');
 
 const client = new pg.Client('postgres://postgres:grrrrr@LOCALHOST:5432/plants');
 client.connect();
+client.on('error', err => {
+    console.error(err);
+});
+console.log('I run');
 
 const readJson = (path, cb) => {
     fs.readFile(require.resolve(path), (err, data) => {
@@ -74,3 +78,5 @@ client.query(`
     );
 
 //Figure out how to end this client
+
+module.exports = client;
