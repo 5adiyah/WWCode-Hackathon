@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/5adiyah/WWCode-Hackathon#readme",
   "dependencies": {
+    "cors": "^2.8.4",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
     "fs": "0.0.1-security",

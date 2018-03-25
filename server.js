@@ -5,6 +5,7 @@ const PORT = process.env.PORT || 3000;
 const express = require('express');
 const app = express();
 const pg = require('pg');
+const cors = require('cors');
 
 const client = new pg.Client(DATABASE_URL);
 client.connect();
@@ -13,6 +14,7 @@ client.on('error', err => {
 });
 
 app.use(express.json());
+app.use(cors());
 
 app.get('/plants', (request, response) => {
     client.query('SELECT * FROM plants')
