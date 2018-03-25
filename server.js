@@ -36,7 +36,7 @@ app.post('/plants/:name', (request, response) => {
         response.send(choice);
 
         return client.query(`
-            INSERT choice(
+            INSERT INTO choice(
                 plant_id,
                 light
             )
