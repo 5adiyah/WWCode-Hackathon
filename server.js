@@ -60,7 +60,6 @@ app.get('/choice', (request, response) => {
         response.send(result.rows);
     })
     .catch(function(err) {
-        console.log('in get error');
         console.error(err);
     });
 });
