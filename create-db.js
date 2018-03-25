@@ -2,7 +2,8 @@
 
 const pg = require('pg');
 const fs = require('fs');
-// const plantsData = require('./plants.json');
+
+const DATABASE_URL = process.env.DATABASE_URL;
 
 const client = new pg.Client(DATABASE_URL);
 client.connect();

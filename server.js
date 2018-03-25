@@ -1,5 +1,6 @@
 const env = require('dotenv').config();
 const DATABASE_URL = process.env.DATABASE_URL;
+console.log(process.env);
 const PORT = process.env.PORT || 3000;
 
 const express = require('express');
