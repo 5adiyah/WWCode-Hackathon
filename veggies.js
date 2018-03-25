@@ -27,6 +27,6 @@ formInit();
 function sendChoice(choice) {
     return $.ajax({
         url: `${DATABASE_URL}/plants/${choice}`,
-        method: 'PUT',
+        method: 'POST',
     })
 };
