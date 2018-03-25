@@ -1,0 +1,71 @@
+html, body{
+    margin: 0;
+    padding: 0;
+    font-family: 'Covered By Your Grace', cursive;
+}
+
+h1{
+    text-align: center;
+    margin-top: 5em;
+}
+
+#veggies{
+    width: 70vw;
+    height: 40vh;
+    display: block;
+    margin: auto;
+}
+
+#choices{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-between;
+    margin-bottom: 3em;
+}
+
+#button{
+    display: block;
+    width: fit-content;
+    margin: auto;
+}
+
+label > input { 
+    visibility: hidden; 
+    position: absolute; 
+}
+
+label > input + img{ /* IMAGE STYLES */
+    cursor:pointer;
+    width: 100px;
+    height: 100px;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    padding: .5em;
+    margin: 1em;
+  }
+
+#veggies input[type=submit]{
+    background-color: #4CAF50;
+    width: 200px;
+    height: 50px;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+#veggies input[type=submit]:hover{
+    background-color: #7be47f;
+    border: 2px solid #fff;
+}
+
+label > input:checked + img{
+    border:2px solid green;
+    border-radius: 4px;
+    margin: 1em;
+  }

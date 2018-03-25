@@ -1,0 +1,32 @@
+{
+  "name": "wifigotchi",
+  "version": "0.0.0",
+  "private": true,
+  "main": "main.js",
+  "scripts": {
+    "dev": "node ./scripts/upload development && npm run repl",
+    "deploy": "node ./scripts/upload production",
+    "repl": "node ./scripts/repl"
+  },
+  "devDependencies": {
+    "thingssdk-deployer": "1.0.0",
+    "thingssdk-espruino-strategy": "1.0.0"
+  },
+  "engines": {
+    "espruino": "1.88"
+  },
+  "dependencies": {
+    "thingssdk-adafruit-matrix": "github:thingssdk/thingssdk-adafruit-matrix"
+  },
+  "description": "This is an example of the [Wifigotchi](http://wifigotchi.com) running on the JavaScript runtime [Espruino](http://espruino.com) on an ESP8266 based board, the [Adafruit Feather HUZZAH](https://www.adafruit.com/products/2821).",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jklipton/wifigotchi-example.git"
+  },
+  "author": "Jen Lipton",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jklipton/wifigotchi-example/issues"
+  },
+  "homepage": "https://github.com/jklipton/wifigotchi-example#readme"
+}
