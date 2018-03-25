@@ -16,8 +16,6 @@
 #include <Servo.h>
 
 #include <Wire.h>
-#include <Adafruit_GFX.h>
-#include "Adafruit_LEDBackpack.h"
 
 #define USE_SERIAL Serial
 
@@ -36,18 +34,12 @@ Servo plantservo;  // create servo object to control a servo
 // twelve servo objects can be created on most boards
 Servo mirrorServo;  
 
-int sunlighttime = 0;
+int sunlighttime = 6;
 int passtime = 0;
 int photocellPin = 17;     // the cell and 10K pulldown are connected to a0
 int photocellReading = 0;     // the analog reading from the analog resistor divider
 
-Adafruit_8x16minimatrix matrix = Adafruit_8x16minimatrix();
-
 void setup() {
-    //happy and frowny face matrix
-    matrix.begin(0x70);  // pass in the address
-
-    
     // temp and humidity sensor
     Serial.begin(UPLOADSPEED);
     Serial.println("DHTxx test!");
@@ -76,8 +68,9 @@ void setup() {
  
     HTTPClient http;
     
-    http.begin("https://openwhisk.ng.bluemix.net/api/v1/web/jkl.lipton%40gmail.com_dev/hackathon/plant-sun.json?plant=origamiTree", "41 1E 4E 54 59 45 68 A7 AC E5 C5 AD BD 54 BA 71 BA C5 D0 A3"); //Specify the URL and certificate
+    http.begin("https://hackathon-plants.herokuapp.com/choice", "08 3B 71 72 02 43 6E CA ED 42 86 93 BA 7E DF 81 C4 BC 62 30"); //Specify the URL and certificate
     int httpCode = http.GET();
+    Serial.print("hellowowowoj: ");
 
     if (httpCode > 0) { //Check for the returning code
         String payload = http.getString();
@@ -85,6 +78,7 @@ void setup() {
         JsonObject& root = jsonBuffer.parseObject(payload);
         String sunlightValue = root["sun"];
         sunlighttime = sunlightTime(sunlightValue);
+        Serial.print(sunlighttime);
       } else {
           USE_SERIAL.printf("[HTTP] GET... failed, error: %s\n", http.errorToString(httpCode).c_str());
       }
@@ -93,12 +87,6 @@ void setup() {
   }
     
 }
-//happy frowny face static image
-   static const uint8_t PROGMEM
-  animation[1][8] =
-  {
-      {60,66,165,129,165,153,66,60}
-  };
 
 void loop() {
 
@@ -143,23 +131,6 @@ void loop() {
   // end of temp and humidity sensor code
   // ---------------------------------
 
-  // smile or frown for humidity
-  if (h < 40){//frowny face-test tomorrow  
-    matrix.clear();
-    matrix.drawBitmap(0, 0, animation[0], 8, 8, LED_ON);
-    matrix.writeDisplay();
-    delay(400);
-    
-    
-  }
-  else if (h >= 40) {//happy face-test tomorrow
-    matrix.clear();
-    matrix.drawBitmap(0, 0, animation[1], 8, 8, LED_ON);
-    matrix.writeDisplay();
-    delay(400);
-    
-     
-  }
   while (passtime != sunlighttime)
   {
     photocellReading = analogRead(photocellPin);
