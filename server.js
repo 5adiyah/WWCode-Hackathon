@@ -38,7 +38,6 @@ app.put('/plants/:name', (request, response) => {
         return client.query(`
             UPDATE choice
             SET plant_id=$1, light =$2
-            WHERE id=1
         `,
         [choice.id, choice.light]
         );
