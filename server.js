@@ -7,7 +7,7 @@ const app = express();
 const pg = require('pg');
 const cors = require('cors');
 
-const client = new pg.Client(DATABASE_URL);
+const client = require('./create-db');
 client.connect();
 client.on('error', err => {
     console.error(err);
