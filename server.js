@@ -9,7 +9,6 @@ const cors = require('cors');
 
 const client = require('./create-db');
 
-
 app.use(express.json());
 app.use(cors());
 
@@ -34,7 +33,7 @@ app.put('/plants/:name', (request, response) => {
     )
     .then(result => {
         const choice= result.rows[0];
-        console.log(choice.id);
+        response.send(choice);
 
         return client.query(`
             UPDATE choice
