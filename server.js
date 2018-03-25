@@ -1,6 +1,5 @@
 const env = require('dotenv').config();
 const DATABASE_URL = process.env.DATABASE_URL;
-console.log(process.env);
 const PORT = process.env.PORT || 3000;
 
 const express = require('express');
@@ -9,10 +8,7 @@ const pg = require('pg');
 const cors = require('cors');
 
 const client = require('./create-db');
-// client.connect();
-// client.on('error', err => {
-//     console.error(err);
-// });
+
 
 app.use(express.json());
 app.use(cors());
