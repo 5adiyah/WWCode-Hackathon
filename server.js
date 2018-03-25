@@ -53,7 +53,8 @@ app.get('/choice', (request, response) => {
     console.log('in get choice');
     client.query(`
         SELECT light FROM choice
-        WHERE id=1;
+        ORDER BY id DESC
+        LIMIT 1;
     `)
     .then(function(result) {
         console.log(result);

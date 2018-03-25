@@ -54,7 +54,7 @@ readJson('./data/plants.json', (err, plantsData) => {
 
 client.query(`
     CREATE TABLE IF NOT EXISTS choice (
-        id=1,
+        id SERIAL,
         plant_id VARCHAR(3),
         light VARCHAR(15) NOT NULL
     );
