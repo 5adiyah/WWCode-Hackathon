@@ -6,8 +6,8 @@ let veggieChoice = null;
 const form = document.getElementById('veggies');
 
 const formInit = () => {
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
 
         if (document.getElementById('basil').checked) {veggieChoice = "Basil"};
         if (document.getElementById('carrot').checked) {veggieChoice = "Carrot"};
@@ -21,6 +21,8 @@ const formInit = () => {
         form.reset();
     })
 };
+
+formInit();
 
 function sendChoice(choice) {
     return $.ajax({
