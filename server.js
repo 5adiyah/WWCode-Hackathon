@@ -22,7 +22,7 @@ app.get('/plants', (request, response) => {
     });
 });
 
-app.put('/plants/:name', (request, response) => {
+app.post('/plants/:name', (request, response) => {
     const plant = request.params.name;
 
         client.query(`
@@ -36,8 +36,11 @@ app.put('/plants/:name', (request, response) => {
         response.send(choice);
 
         return client.query(`
-            UPDATE choice
-            SET plant_id=$1, light =$2
+            INSERT choice(
+                plant_id,
+                light
+            )
+            VALUES ($1, $2);
         `,
         [choice.id, choice.light]
         );
